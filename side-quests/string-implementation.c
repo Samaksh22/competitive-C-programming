@@ -76,15 +76,14 @@ str str_ccat(str a, const char *cstr);
 
 int str_eq(str a, str b);
 
+
+// entry point
 int main() {
-    str a = str_new();
-    printf("Hellow %s", str_cstr(a));
-
-    printf("size of 'hello': %zu", _cstr_len("abcddfad fd"));
-
-    return 0;
+    printf("hellow");
 }
 
+
+// function definitions
 size_t _cstr_len(const char *cstr) {
     if (cstr == NULL) {
         return 0;
