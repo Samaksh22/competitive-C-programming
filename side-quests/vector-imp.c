@@ -1,11 +1,12 @@
+#include <stddef.h>
 #include <stdio.h>
 #include <stdint.h>
 #include <stdlib.h>
 
 typedef struct {
     int *arr;
-    int len;
-    int cap;
+    size_t len;
+    size_t cap;
 }vec;
 
 /*
