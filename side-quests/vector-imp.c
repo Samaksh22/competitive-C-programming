@@ -1,16 +1,21 @@
 #include <stddef.h>
-#include <stdio.h>
 #include <stdint.h>
+#include <stdio.h>
 #include <stdlib.h>
-
-typedef struct {
-    int *arr;
-    size_t len;
-    size_t cap;
-}vec;
+#include <string.h>
+#include <sys/types.h>
 
 /*
  * Extensible array that allows append, insert, search, delete, sort
+ *
+ *
+ *   typedef struct {
+ *       int *arr;
+ *       size_t len;
+ *       size_t cap;
+ *   } vec_int;
+ *
+ *
  *
  *
  * -- LIFECYCLE --
@@ -83,8 +88,76 @@ typedef struct {
  *
  */
 
-int main()
-{
+typedef struct {
+    int *arr;
+    size_t len;
+    size_t cap;
+} vec_int;
+
+// --- UTILS ---
+size_t next_pow_2(size_t n) {
+    if (n == 0) {
+        return 0;
+    }
+
+    size_t x = 1;
+    while (x < n && x < (x << 1)) {
+        x <<= 1;
+    }
+
+    if (x < n) {
+        return 0;
+    }
+
+    return x;
+}
+
+// --- LIFECYCLE ---
+vec_int vec_init() {
+    return (vec_int){.arr = NULL, .len = 0, .cap = 0};
+}
+
+vec_int vec_with_cap(size_t cap) {
+    cap = next_pow_2(cap);
+    if (cap == 0) {
+        return vec_init();
+    }
+
+    int *arr = malloc(sizeof(int) * cap);
+    if (arr == NULL) {
+        return vec_init();
+    }
+
+    return (vec_int){.arr = arr, .len = 0, .cap = cap};
+}
+
+void vec_drop(vec_int *v) {
+    if (v->arr) {
+        free(v->arr);
+    }
+    v->arr = NULL;
+    v->len = 0;
+    v->cap = 0;
+}
+
+void vec_clear(vec_int *v) {
+    v->len = 0;
+}
+
+// --- SIZE ---
+size_t vec_len(vec_int v) {
+    return v.len;
+}
+
+size_t vec_cap(vec_int v) {
+    return v.cap;
+}
+
+int vec_empty(vec_int v) {
+    return v.len == 0;
+}
+
+int main() {
     printf("hellow");
 
     return 0;
