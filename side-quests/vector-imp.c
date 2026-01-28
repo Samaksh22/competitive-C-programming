@@ -157,6 +157,22 @@ int vec_empty(vec_int v) {
     return v.len == 0;
 }
 
+int vec_get(vec_int v, size_t idx) {
+    return v.arr[idx];
+}
+
+void vec_set(vec_int *v, size_t idx, int val) {
+    v->arr[idx] = val;
+}
+
+int vec_front(vec_int v) {
+    return v.arr[0];
+}
+
+int vec_back(vec_int v) {
+    return v.arr[v.len - 1];
+}
+
 int main() {
     printf("hellow");
 
