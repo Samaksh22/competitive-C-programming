@@ -12,3 +12,4 @@ As the name suggests..
 - Got some unexpected problem with Zed where it is assuming my `.h` file to be `cpp` and giving me errors.
 
 ## Personal Vector Library
+- Started the work on my vector library in C. Implemented operations like push, pop, insert, get, set, etc...
