@@ -157,12 +157,14 @@ int vec_empty(vec_int v) {
     return v.len == 0;
 }
 
+// --- ELEMENT ACCESS ---
+
 int vec_get(vec_int v, size_t idx) {
     return v.arr[idx];
 }
 
-void vec_set(vec_int *v, size_t idx, int val) {
-    v->arr[idx] = val;
+void vec_set(vec_int *v, size_t idx, int x) {
+    v->arr[idx] = x;
 }
 
 int vec_front(vec_int v) {
@@ -171,6 +173,69 @@ int vec_front(vec_int v) {
 
 int vec_back(vec_int v) {
     return v.arr[v.len - 1];
+}
+
+// --- MUTATIONS ---
+
+int vec_push(vec_int *v, int x) {
+    if (v->len == v->cap) {
+        size_t new_cap;
+        if (v->cap == 0) {
+            new_cap = 1;
+        } else {
+            new_cap = v->cap * 2;
+        }
+
+        int *ptr = realloc(v->arr, new_cap * sizeof(int));
+        if (ptr == NULL) {
+            return 0;
+        }
+        v->cap = new_cap;
+        v->arr = ptr;
+    }
+    v->arr[v->len] = x;
+    v->len++;
+    return 1;
+}
+
+int vec_pop(vec_int *v) {
+    v->len--;
+    return v->arr[v->len];
+}
+
+int vec_insert(vec_int *v, size_t i, int x) {
+    if (v->len == v->cap) {
+        size_t new_cap;
+        if (v->cap == 0) {
+            new_cap = 1;
+        } else {
+            new_cap = v->cap * 2;
+        }
+
+        int *ptr = realloc(v->arr, new_cap * sizeof(int));
+        if (ptr == NULL) {
+            return 0;
+        }
+        v->cap = new_cap;
+        v->arr = ptr;
+    }
+
+    for (size_t j = v->len; j > i; j--) {
+        v->arr[j] = v->arr[j - 1];
+    }
+    v->arr[i] = x;
+    v->len++;
+    return 1;
+}
+
+int vec_erase(vec_int *v, size_t i) {
+    int x = v->arr[i];
+    for (; i + 1 < v->len; i++) {
+        v->arr[i] = v->arr[i+1];
+    }
+    v->len--;
+
+    return x;
 }
 
 int main() {
