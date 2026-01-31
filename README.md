@@ -14,3 +14,4 @@ As the name suggests..
 ## Personal Vector Library
 - Started the work on my vector library in C. Implemented operations like push, pop, insert, get, set, etc...
 - Found a bug in comparator for sort. Need to update it.
+- The vector library is complete (for now). Obviously in the C spirit, we required undefined behaviour for things like accessing something outside the array, accessing after free, etc.
