@@ -281,11 +281,15 @@ size_t vec_find(vec_int v, int x) {
 }
 
 int _asc_comp(const void *a, const void *b) {
-    return (*(int *)a - *(int *)b);
+    int x = *(const int *)a;
+    int y = *(const int *)b;
+    return (x > y) - (x < y);
 }
 
 int _desc_comp(const void *a, const void *b) {
-    return (*(int *)b - *(int *)a);
+    int x = *(const int *)a;
+    int y = *(const int *)b;
+    return (y > x) - (y < x);
 }
 
 void vec_sort(vec_int *v, int ascending) {
